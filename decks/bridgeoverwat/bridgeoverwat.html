@@ -30,27 +30,40 @@
   T apply(F input);
 }</pre>
   <section class="slide">
-    <h2>and extend it:</h2>
-    <pre>public interface Transformer
-         extends Function&lt;Lorry, Robot&gt;
+    <h2>and extend it to describe a service:</h2>
+    <pre>public interface StringPricer
+         extends Function&lt;String, Integer&gt;
 {
-  Robot apply(Lorry input);
+  Integer apply(String item);
 }</pre>
   </section>
 </section>
 
 
 <section class="slide">
-  <h2>Now lets mock it:</h2>
-  <pre>Transformer megatron = mock(Transformer.class);
+  <h2>We need a consumer:</h2>
+  <pre>class Shop&lt;T&gt {
+  Function&lt;T, Integer&gt pricer;
+  Shop(Function&lt;T, Integer&gt p) { pricer = p; }
 
-  allowing(megatron).apply(myLorry);</pre>
+  Integer priceOf(T item) {
+    return pricer.apply(item);
+  }
+}</pre>
+</section>
 
-  <section class="slide">
-    <h2>and invoke on the mock:</h2>
-    <pre>megatron.apply(myLorry);</pre>
-  </section>
 
+<section class="slide">
+  <h2>Which we'll test, of course:</h2>
+  <pre>@Test shopCanPriceStuff() {
+  StringPricer clerk = mock(StringPricer.class);
+  Shop&lt;String&gt; shop = new Shop&lt;String&gt;(clerk);
+
+  allowing(clerk).apply("banana");
+    will(returnValue(1));
+
+  assertThat(shop.priceOf("banana"), is(1));
+}</pre>
   <section class="slide">
     <h2>any ideas?</h2>
   </section>
@@ -58,19 +71,18 @@
 
 
 <section class="slide">
-  <h1>output:</h2>
-  <pre>Transformer megatron = mock(Transformer.class);
-
-  allowing(megatron).apply(myLorry);</pre>
-  <section class="slide">
-    <h2>and invoke on the mock:</h2>
-    <pre>megatron.apply(myLorry);</pre>
+  <h2>output:</h2>
+  <pre>unexpected invocation: stringPricer.apply("banana")
+expectations:
+  allowed, never invoked:
+    stringPricer.apply("banana"); returns <1>
+what happened before this: nothing!</pre>
   </section>
 </section>
 
 
 <section class="slide">
-  <h1>Wat!</h2>
+  <h2>Wat!</h2>
   <img src=""/>
 </section>
 
