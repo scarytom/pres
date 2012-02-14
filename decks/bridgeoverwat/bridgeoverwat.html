@@ -9,8 +9,9 @@
 	<link rel="stylesheet" href="../../deck.js/core/deck.core.css" type="text/css">
 	
 	<!-- Any other extension CSS files go here. -->
-	<link rel="stylesheet" href="../../deck.js/themes/style/neon.css" type="text/css">
-	<link rel="stylesheet" href="../../deck.js/themes/transition/horisontal-slide.css" type="text/css">
+	<link rel="stylesheet" href="../../deck.js/themes/style/web-2.0.css" type="text/css">
+	<link rel="stylesheet" href="../../deck.js/themes/transition/horizontal-slide.css" type="text/css">
+	<link rel="stylesheet" href="../../deck.js/themes/bigcode.css" type="text/css">
 	
 	<!-- Replace path with correct path to Modernizr file. -->
 	<script src="../../deck.js/modernizr.custom.js"></script>
@@ -23,16 +24,30 @@
 </section>
 	
 <section class="slide">
-  <h2>Let's take plain old java:</h2>
-    <p>interface</p>
-    <ul>
-      <li>Point 1</li>
-      <li>Point 2</li>
-      <li>Point 3</li>
-    </ul>
+  <h2>Lets take a old Java Interface:</h2>
+  <pre>public interface Function&lt;F, T&gt; {
+  T apply(F input);
+}</pre>
+  <section class="slide">
+    <h2>and extend it:</h2>
+    <pre>public interface Transformer
+       extends Function&lt;Lorry, Robot&gt;
+{
+  Robot apply(Lorry input);
+}</pre>
+  </section>
 </section>
 
 <section class="slide">
+  <h2>Now lets mock it:</h2>
+  <pre>Transformer megatron = context.mock(Transformer.class);
+context.checking(new Expectations() {{
+  allowing(megatron).apply(myLorry);
+}});</pre>
+  <section class="slide">
+    <h2>and invoke:</h2>
+    <pre>megatron.apply(myLorry);</pre>
+  </section>
 </section>
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
 
