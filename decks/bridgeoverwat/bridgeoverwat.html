@@ -11,7 +11,7 @@
 	<!-- Any other extension CSS files go here. -->
 	<link rel="stylesheet" href="../../deck.js/themes/style/web-2.0.css" type="text/css">
 	<link rel="stylesheet" href="../../deck.js/themes/transition/horizontal-slide.css" type="text/css">
-	<link rel="stylesheet" href="../../deck.js/themes/bigcode.css" type="text/css">
+	<link rel="stylesheet" href="bigcode.css" type="text/css">
 	
 	<!-- Replace path with correct path to Modernizr file. -->
 	<script src="../../deck.js/modernizr.custom.js"></script>
@@ -22,34 +22,60 @@
 <section class="slide">
   <h1>A Bridge Over Troubled Wat-er</h1>
 </section>
-	
+
+
 <section class="slide">
-  <h2>Lets take a old Java Interface:</h2>
+  <h2>Start with a Java Interface:</h2>
   <pre>public interface Function&lt;F, T&gt; {
   T apply(F input);
 }</pre>
   <section class="slide">
     <h2>and extend it:</h2>
     <pre>public interface Transformer
-       extends Function&lt;Lorry, Robot&gt;
+         extends Function&lt;Lorry, Robot&gt;
 {
   Robot apply(Lorry input);
 }</pre>
   </section>
 </section>
 
+
 <section class="slide">
   <h2>Now lets mock it:</h2>
-  <pre>Transformer megatron = context.mock(Transformer.class);
-context.checking(new Expectations() {{
-  allowing(megatron).apply(myLorry);
-}});</pre>
+  <pre>Transformer megatron = mock(Transformer.class);
+
+  allowing(megatron).apply(myLorry);</pre>
+
   <section class="slide">
-    <h2>and invoke:</h2>
+    <h2>and invoke on the mock:</h2>
+    <pre>megatron.apply(myLorry);</pre>
+  </section>
+
+  <section class="slide">
+    <h2>any ideas?</h2>
+  </section>
+</section>
+
+
+<section class="slide">
+  <h1>output:</h2>
+  <pre>Transformer megatron = mock(Transformer.class);
+
+  allowing(megatron).apply(myLorry);</pre>
+  <section class="slide">
+    <h2>and invoke on the mock:</h2>
     <pre>megatron.apply(myLorry);</pre>
   </section>
 </section>
-<!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
+
+
+<section class="slide">
+  <h1>Wat!</h2>
+  <img src=""/>
+</section>
+
+
+
 
 <!-- Update these paths to point to the correct files. -->
 <script src="../../deck.js/jquery-1.7.min.js"></script>
