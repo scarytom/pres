@@ -82,7 +82,6 @@ expectations:
     Bob.tasty("soup"); returns &lt;true&gt;
 
 what happened before this: nothing!</pre>
-  </section>
 </section>
 
 
@@ -91,7 +90,33 @@ what happened before this: nothing!</pre>
 </section>
 
 
+<section class="slide">
+  <h2>But there's only one tasty method:</h2>
+  <pre>interface Taster&lt;T&gt; {
+  boolean tasty(T item);
+}
+interface StrTaster
+  extends Taster&lt;String&gt;
+{
+  boolean tasty(String item);
+}</pre>
+  <h2>right?</h2>
+</section>
 
+
+<section class="slide">
+  <h2>Wrong</h2>
+  <pre>System.out.println(
+  Arrays.deepToString(
+    StrTaster.class.getMethods()))
+
+[public abstract boolean StrTaster.tasty(String),
+ public abstract boolean Taster.tasty(Object)]</pre>
+  <section class="slide">
+    <h2>We mock one, then invoke the other.</h2>
+  </section>
+</pre>
+</section>
 
 <!-- Update these paths to point to the correct files. -->
 <script src="../../deck.js/jquery-1.7.min.js"></script>
