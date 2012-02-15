@@ -20,34 +20,34 @@
 
 <!-- Create any number of elements with class slide within the container -->
 <section class="slide">
-  <h1>A Bridge Over Troubled Wat-er</h1>
+  <h1>A Bridge Over Troubled Wat</h1>
 </section>
 
 
 <section class="slide">
   <h2>Start with a Java Interface:</h2>
-  <pre>public interface Function&lt;F, T&gt; {
-  T apply(F input);
+  <pre>interface Taster&lt;T&gt; {
+  boolean tasty(T item);
 }</pre>
   <section class="slide">
-    <h2>and extend it to describe a service:</h2>
-    <pre>public interface StringPricer
-         extends Function&lt;String, Integer&gt;
+    <h2>and extend to describe a service:</h2>
+    <pre>interface StrTaster
+  extends Taster&lt;String&gt;
 {
-  Integer apply(String item);
+  boolean tasty(String item);
 }</pre>
   </section>
 </section>
 
 
 <section class="slide">
-  <h2>We need a consumer:</h2>
+  <h2>We need an employer:</h2>
   <pre>class Shop&lt;T&gt {
-  Function&lt;T, Integer&gt pricer;
-  Shop(Function&lt;T, Integer&gt p) { pricer = p; }
+  Taster&lt;T&gt taster;
+  Shop(Taster&lt;T&gt t) { taster = t; }
 
-  Integer priceOf(T item) {
-    return pricer.apply(item);
+  boolean willBuy(T item) {
+    return taster.tasty(item);
   }
 }</pre>
 </section>
@@ -55,35 +55,39 @@
 
 <section class="slide">
   <h2>Which we'll test, of course:</h2>
-  <pre>@Test shopCanPriceStuff() {
-  StringPricer clerk = mock(StringPricer.class);
-  Shop&lt;String&gt; shop = new Shop&lt;String&gt;(clerk);
+  <pre>@Test shopBuysTastyStuff() {
+  StrTaster bob =
+    mock(StrTaster.class, "Bob");
+  
+  Shop&lt;String&gt; asda =
+    new Shop&lt;String&gt;(bob);
 
-  allowing(clerk).apply("banana");
-    will(returnValue(1));
+  allowing(bob).tasty("soup");
+    will(returnValue(true));
 
-  assertThat(shop.priceOf("banana"), is(1));
+  assertTrue(shop.willBuy("soup"));
 }</pre>
   <section class="slide">
-    <h2>any ideas?</h2>
+    <h3>Any ideas?</h3>
   </section>
 </section>
 
 
 <section class="slide">
   <h2>output:</h2>
-  <pre>unexpected invocation: stringPricer.apply("banana")
+  <pre>unexpected invocation: Bob.tasty("soup")
+
 expectations:
   allowed, never invoked:
-    stringPricer.apply("banana"); returns <1>
+    Bob.tasty("soup"); returns &lt;true&gt;
+
 what happened before this: nothing!</pre>
   </section>
 </section>
 
 
 <section class="slide">
-  <h2>Wat!</h2>
-  <img src=""/>
+  <h1><img src="wat.jpg"/></h1>
 </section>
 
 
