@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>A Bridge Over Troubled Wat-er</title>
+	<title>A Bridge Over Wat</title>
 	<meta name="viewport" content="width=1024, user-scalable=no">
 	
 	<!-- Replace path with correct path to deck.core.css. -->
@@ -20,7 +20,7 @@
 
 <!-- Create any number of elements with class slide within the container -->
 <section class="slide">
-  <h1>A Bridge Over Troubled Wat</h1>
+  <h1>A Bridge Over Wat</h1>
 </section>
 
 
@@ -31,9 +31,7 @@
 }</pre>
   <section class="slide">
     <h2>and extend to describe a service:</h2>
-    <pre>interface StrTaster
-  extends Taster&lt;String&gt;
-{
+    <pre>interface StrTaster extends Taster&lt;String&gt; {
   boolean tasty(String item);
 }</pre>
   </section>
@@ -56,19 +54,16 @@
 <section class="slide">
   <h2>Which we'll test, of course:</h2>
   <pre>@Test shopBuysTastyStuff() {
-  StrTaster bob =
-    mock(StrTaster.class, "Bob");
+  StrTaster bob = mock(StrTaster.class, "Bob");
   
-  Shop&lt;String&gt; asda =
-    new Shop&lt;String&gt;(bob);
+  Shop&lt;String&gt; asda = new Shop&lt;String&gt;(bob);
 
-  allowing(bob).tasty("soup");
-    will(returnValue(true));
+  allowing(bob).tasty("soup"); will(returnValue(true));
 
   assertTrue(shop.willBuy("soup"));
 }</pre>
   <section class="slide">
-    <h3>Any ideas?</h3>
+    <h2>Any ideas?</h2>
   </section>
 </section>
 
@@ -86,7 +81,7 @@ what happened before this: nothing!</pre>
 
 
 <section class="slide">
-  <h1><img src="wat.jpg"/></h1>
+  <h1><img src="wat.jpg" width="100%" height="100%"/></h1>
 </section>
 
 
@@ -95,9 +90,8 @@ what happened before this: nothing!</pre>
   <pre>interface Taster&lt;T&gt; {
   boolean tasty(T item);
 }
-interface StrTaster
-  extends Taster&lt;String&gt;
-{
+
+interface StrTaster extends Taster&lt;String&gt; {
   boolean tasty(String item);
 }</pre>
   <h2>right?</h2>
@@ -108,15 +102,74 @@ interface StrTaster
   <h2>Wrong</h2>
   <pre>System.out.println(
   Arrays.deepToString(
-    StrTaster.class.getMethods()))
+    StrTaster.class.getMethods()));
 
 [public abstract boolean StrTaster.tasty(String),
  public abstract boolean Taster.tasty(Object)]</pre>
   <section class="slide">
     <h2>We mock one, then invoke the other.</h2>
   </section>
-</pre>
 </section>
+
+
+<section class="slide">
+  <h2>How about this?</h2>
+  <pre>interface Taster&lt;T&gt; {
+  boolean tasty(T item);
+}
+
+interface StrTaster extends Taster&lt;String&gt; { }</pre>
+</section>
+
+
+<section class="slide">
+  <h1><img src="yay.jpg" width="100%" height="100%"/></h1>
+</section>
+
+
+<section class="slide">
+  <h2>Let's look at an implementing class</h2>
+  <pre>interface Taster&lt;T&gt; {
+  boolean tasty(T item);
+}
+interface StrTaster extends Taster&lt;String&gt; { }
+
+class Chef implements StrTaster {
+  public boolean tasty(String s) {
+    return true;
+  }
+}</pre>
+<h2>We only implement one method here, surely?</h2>
+</section>
+
+
+<section class="slide">
+  <h2>Wrong</h2>
+  <pre>System.out.println(
+  Arrays.deepToString(
+    Chef.class.getMethods()));
+
+[public boolean Chef.tasty(String)
+ public boolean Chef.tasty(Object)]</pre>
+  <section class="slide">
+    <h2>Java gives us the other... for free</h2>
+  </section>
+</section>
+
+<section class="slide">
+  <h2>A bridge method in fact</h2>
+  <pre>System.out.println(Chef.class.getMethods()[0].isBridge());
+System.out.println(Chef.class.getMethods()[1].isBridge());
+
+false
+true</pre>
+</section>
+       
+
+<section class="slide">
+  <h1><img src="fin.jpg" width="100%" height="100%"/></h1>
+</section>
+
 
 <!-- Update these paths to point to the correct files. -->
 <script src="../../deck.js/jquery-1.7.min.js"></script>
