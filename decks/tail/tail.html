@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>A Tail of Two Languages</title>
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Replace path with correct path to deck.core.css. -->
+	<link rel="stylesheet" href="../../deck.js/core/deck.core.css" type="text/css">
+	
+	<!-- Any other extension CSS files go here. -->
+	<link rel="stylesheet" href="../../deck.js/themes/style/web-2.0.css" type="text/css">
+	<link rel="stylesheet" href="../../deck.js/themes/transition/horizontal-slide.css" type="text/css">
+	<link rel="stylesheet" href="bigcode.css" type="text/css">
+	
+	<!-- Replace path with correct path to Modernizr file. -->
+	<script src="../../deck.js/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Create any number of elements with class slide within the container -->
+<section class="slide">
+  <h1>A Tail of Two Languages</h1>
+</section>
+
+
+<section class="slide">
+  <h2>Power in Java:</h2>
+  <pre>int pow(int base, int exp, int acc) {
+    if (exp == 0) {
+        return acc;
+    }
+    return pow(base, exp - 1, base * acc);
+}</pre>
+  <section class="slide">
+    <pre>pow(2, 10, 1)
+1024</pre>
+  </section>
+  <section class="slide">
+    <pre>pow(2, 10000, 1)
+Exception in thread "main" java.lang.StackOverflowError</pre>
+  </section>
+</section>
+
+
+<section class="slide">
+  <h1><img src="notail.png" width="100%" height="100%"/></h1>
+</section>
+
+
+<section class="slide">
+  <h2>Power in Clojure</h2>
+  <pre>(defn pow [base exp acc]
+  (if (zero? exp)
+    acc
+    (pow base (dec exp) (* base acc))))</pre>
+  <section class="slide">
+    <pre>(pow 2 10 1)
+1024</pre>
+  </section>
+  <section class="slide">
+    <pre>(pow 2 10000 1)
+StackOverflowError</pre>
+  </section>
+</section>
+
+
+<section class="slide">
+  <h1><img src="tail.png" width="100%" height="100%"/></h1>
+</section>
+
+
+<section class="slide">
+  <h2>Tail call optimisation</h2>
+  <h2>OK, so the JVM doesn't have it...</h2>
+  <h2>...but Clojure doesn't either?</h2>
+</section>
+
+
+<section class="slide">
+  <h2>Power in Clojure</h2>
+  <pre>(defn pow [base exp acc]
+  (if (zero? exp)
+    acc
+    (recur base (dec exp) (* base acc))))</pre>
+  <section class="slide">
+    <pre>(pow 2 10 1)
+1024</pre>
+  </section>
+  <section class="slide">
+    <pre>(pow 2 10000 1)
+a VERY big number</pre>
+  </section>
+</section>
+
+
+<section class="slide">
+  <h1>Phew, I knew clojure was cool...</h1>
+</section>
+
+
+<section class="slide">
+  <h2>Why recur?</h2>
+  <h2>implicit vs. explicit</h2>
+  <h2>no technical reason -- scala does this</h2>
+  <section class="slide">
+    <h2>1) no generalised TCO in the JVM</h2>
+    <h2>2) error detection</h2>
+  </section>
+</section>
+
+
+<section class="slide">
+  <h2>No Tail</h2>
+  <pre>(defn pow [base exp]
+  (if (zero? exp)
+    1
+    (* base (recur base (dec exp)))))</pre>
+  <section class="slide">
+    <pre>CompilerException java.lang.UnsupportedOperationException:
+Can only recur from tail position</pre>
+  </section>
+</section>
+
+
+<!-- Update these paths to point to the correct files. -->
+<script src="../../deck.js/jquery-1.7.min.js"></script>
+<script src="../../deck.js/core/deck.core.js"></script>
+
+<!-- Add any other extension JS files here -->
+
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+	$(function() {
+		$.deck('.slide');
+	});
+</script>
+</body>
+</html>
