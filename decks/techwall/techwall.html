@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>TechWall -- a no-frameworks webapp</title>
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Replace path with correct path to deck.core.css. -->
+	<link rel="stylesheet" href="../../deck.js/core/deck.core.css" type="text/css">
+	
+	<!-- Any other extension CSS files go here. -->
+	<link rel="stylesheet" href="../../deck.js/themes/style/web-2.0.css" type="text/css">
+	<link rel="stylesheet" href="../../deck.js/themes/transition/horizontal-slide.css" type="text/css">
+	<link rel="stylesheet" href="bigcode.css" type="text/css">
+	
+	<!-- Replace path with correct path to Modernizr file. -->
+	<script src="../../deck.js/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Create any number of elements with class slide within the container -->
+<section class="slide">
+  <h1>TechWall<br/>a no-frameworks webapp</h1>
+</section>
+
+
+<section class="slide">
+  <h2>An experiment was carried out...</h2>
+  <h2>Build a real webapp</h2>
+  <h2>As little code as possible</h2>
+  <h2>No Frameworks!</h2>
+  <h2>Lightweight libraries are OK</h2>
+</section>
+
+<section class="slide">
+  <h2>
+  <ul>
+    <li>Language</li>
+    <li>Web container <a href="https://github.com/youdevise/techwall/blob/v0.2.0/src/techwall/handler.clj">.</a></li>
+    <li>Database <a href="http://www.h2database.com/html/main.html">.</a></li>
+    <li>DB Migrations <a href="https://github.com/youdevise/techwall/blob/v0.2.0/src/techwall/schema.clj">.</a></li>
+    <li>DB Access <a href="https://github.com/youdevise/techwall/blob/v0.2.0/src/techwall/db.clj">.</a></li>
+    <li>Queries <a href="https://github.com/youdevise/techwall/blob/v0.2.0/src/techwall/technologies.clj">.</a></li>
+    <li>Templating
+      <a href="https://github.com/youdevise/techwall/blob/v0.2.0/resources/public/js/jquery.realisr.js">.</a>
+      <a href="https://github.com/youdevise/techwall/blob/v0.2.0/resources/public/index.html">.</a>
+      <a href="https://github.com/youdevise/techwall/blob/v0.2.0/resources/public/js/index.js">.</a>
+    </li>
+  </ul>
+  </h2>
+</section>
+
+<section class="slide">
+  <h1><img src="fin.jpg" width="100%" height="100%"/></h1>
+</section>
+
+
+<!-- Update these paths to point to the correct files. -->
+<script src="../../deck.js/jquery-1.7.min.js"></script>
+<script src="../../deck.js/core/deck.core.js"></script>
+
+<!-- Add any other extension JS files here -->
+
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+	$(function() {
+		$.deck('.slide');
+	});
+</script>
+</body>
+</html>
